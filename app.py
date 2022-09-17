@@ -8,7 +8,7 @@ ALLOWED_EXTENSIONS = {'m4a'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'\
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -31,6 +31,9 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
+        else:
+            flash('Unsupported file type')
+            return redirect(request.url)
     return render_template('upload.html')
 
 from flask import send_from_directory

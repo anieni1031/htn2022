@@ -1,6 +1,13 @@
 <html>
    <body>
-      <!doctype html>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            {% for message in messages %}
+               {{ message }}
+            {% endfor %}
+         {% endif %}
+      {% endwith %}
+   
       <title>colors or something</title>
       <h1>Upload new File</h1>
       <form method=post enctype=multipart/form-data>
