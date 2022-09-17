@@ -1,16 +1,14 @@
 import os
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = ''
+UPLOAD_FOLDER = './uploads/'
 ALLOWED_EXTENSIONS = {'m4a'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-'''@app.route("/")
-def home():
-    return "colors!!!!!! woa"'''
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -33,12 +31,10 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('upload.html')
+
+from flask import send_from_directory
+
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
