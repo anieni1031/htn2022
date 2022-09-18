@@ -3,6 +3,14 @@
       <link rel="stylesheet" href="/static/styles/page.css"/>
    </head>
    <body>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            {% for message in messages %}
+               {{ message }}
+            {% endfor %}
+         {% endif %}
+      {% endwith %}
+   
       <title>colors or something</title>
       <div class = "titlebar">
          <h1>Upload new File</h1>
