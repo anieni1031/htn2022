@@ -1,11 +1,19 @@
 <html>
+   <head>
+      <link rel="stylesheet" href="/static/styles/page.css"/>
+   </head>
    <body>
-      <!doctype html>
       <title>colors or something</title>
-      <h1>Upload new File</h1>
-      <form method=post enctype=multipart/form-data>
-         <input type=file name=file>
-         <input type=submit value=Upload>
-      </form>
-    </body>
+      <div class = "titlebar">
+         <h1>Upload new File</h1>
+      </div>
+      <div class="middle" >
+         <form method=post enctype=multipart/form-data>
+            <input class="txtbox" type=file name=file>
+            <div class="resultsPad">
+               <input class="btnResults" type=submit value="Display Results">
+            </div>
+         </form>
+      </div>
+   </body>
 </html>
