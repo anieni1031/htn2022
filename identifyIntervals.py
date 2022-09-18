@@ -92,7 +92,17 @@ frequents = topKFrequent(intervals, 5)
 
 # spd
 
-# colours = []
+major = false
+majorC = 0
+for i in range(frequents):
+    cur = frequents[i]
+    if cur == 2 or cur == 4 or cur == 5 or cur == 6 or cur==7 or cur==9 or cur==11 or cur==12:
+        majorC+=1
+if(majorC>len(frequents)/2):
+    major = True;
 
-# for i in range frequents:
-#     colours.append(hsvInRange(intervalDict[frequents[i]]))
+
+colours = []
+for i in range(frequents):
+    colours.append(hsvInRange(intervalDict[frequents[i]], major))
+print(colours)
