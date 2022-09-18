@@ -2,7 +2,22 @@
 from ast import List
 import random
 
-#hsv values for each interval
+#integer value for each note
+noteDict={
+    "A" : 1,
+    "A#" : 2,
+    "B" : 3,
+    "C" : 4,
+    "C#" : 5,
+    "D" : 6,
+    "D#" : 7,
+    "E" : 8,
+    "F" : 9,
+    "G" : 10,
+    "G#" : 11,
+}
+
+#hsv values for each interval provided in a dictionary
 intervalDict = {
     0: [0,50,10],
     1: [0,50,10],
@@ -19,17 +34,19 @@ intervalDict = {
     12: [0,50,10],
 }
 
-def allIntervals(arr: List[int]):
+#takes in a string array of notes
+#returns an array of all the intervals
+def allIntervals(arr):
     if(arr.length<=1):
         return [1]
     i=len(arr)-1
     intervalArray=[]
     while(i>0):
-        intervalArray.append(arr[i]-arr[i-1])
+        intervalArray.append(abs(noteDict[arr[i]]-noteDict[arr[i-1]]))
         i-=1
     return intervalArray
 
-
+#takes top k number of most frequent elements + returns them in an int array
 def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         count = {}
         freq = [[] for i in range(len(nums) + 1)]
@@ -67,3 +84,5 @@ def hsvInRange(hsv:List[int], major:bool, spd:int):
     hsv[2] += random.randint(0, int(spd/2))
     if hsv[2]>100:
         hsv[2] =100
+
+    return hsv
