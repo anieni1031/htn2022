@@ -31,14 +31,17 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return render_template('results.html') # redirect(url_for('download_file', name=filename))
+            return redirect(url_for('download_file', name=filename)) # render_template('results.html')
+            
         else:
             flash('Unsupported file type')
             return redirect(request.url)
     return render_template('upload.html')
 
 from flask import send_from_directory
+import identifyIntervals
 
 @app.route('/uploads/<name>')
 def download_file(name):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+    send_from_directory(app.config["UPLOAD_FOLDER"], name)
+    return render_template('results.html')

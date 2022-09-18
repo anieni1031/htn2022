@@ -36,16 +36,16 @@ def main(file, note_file=None, note_starts_file=None, plot_starts=False, plot_ff
 
     predicted_notes = predict_notes(song, starts, actual_notes, plot_fft_indices)
 
-    print("")
-    if actual_notes:
-        print("Actual Notes")
-        print(actual_notes)
-    print("Predicted Notes")
-    print(predicted_notes)
+    #print("")
+    #if actual_notes:
+        # print("Actual Notes")
+        # print(actual_notes)
+    # print("Predicted Notes")
+    # print(predicted_notes)
 
-    if actual_notes:
-        lev_distance = calculate_distance(predicted_notes, actual_notes)
-        print("Levenshtein distance: {}/{}".format(lev_distance, len(actual_notes)))
+    # if actual_notes:
+        # lev_distance = calculate_distance(predicted_notes, actual_notes)
+        # print("Levenshtein distance: {}/{}".format(lev_distance, len(actual_notes)))
 
 def predict_note_starts(song, plot, actual_starts):
     #size of segments to break song into volume calculations
@@ -79,11 +79,11 @@ def predict_note_starts(song, plot, actual_starts):
             ):
                 predicted_starts.append(ms)
     
-    if len(actual_starts) > 0:
-        print("Approximate actual note start times ({})".format(len(actual_starts)))
-        print(" ".join(["{:5.2f}".format(s) for s in actual_starts]))
-        print("Predicted note start times ({})".format(len(predicted_starts)))
-        print(" ".join(["{:5.2f}".format(ms / 1000) for ms in predicted_starts]))
+    # if len(actual_starts) > 0:
+        # print("Approximate actual note start times ({})".format(len(actual_starts)))
+        # print(" ".join(["{:5.2f}".format(s) for s in actual_starts]))
+        # print("Predicted note start times ({})".format(len(predicted_starts)))
+        # print(" ".join(["{:5.2f}".format(ms / 1000) for ms in predicted_starts]))
 
     # plot the graph things
     if plot:
@@ -94,7 +94,7 @@ def predict_note_starts(song, plot, actual_starts):
             plt.axvline(x=s, color="r", linewidth=0.5, linestyle="-")
         for ms in predicted_starts:
             plt.axvline(x=(ms / 1000), color="g", linewidth=0.5, linestyle=":")
-        plt.show()
+        # plt.show()
     return predicted_starts
 
 def predict_notes(song, starts, actual_notes, plot_fft_indices):
@@ -111,19 +111,19 @@ def predict_notes(song, starts, actual_notes, plot_fft_indices):
         predicted_notes.append(predicted or "U")
 
         # Print general info
-        print("")
-        print("Note: {}".format(i))
-        if i < len(actual_notes):
-            print("Predicted: {} Actual: {}".format(predicted, actual_notes[i]))
-        else:
-            print("Predicted: {}".format(predicted))
-        print("Predicted start: {}".format(start))
-        length = sample_to - sample_from
-        print("Sampled from {} to {} ({} ms)".format(sample_from, sample_to, length))
-        print("Frequency sample period: {}hz".format(freqs[1]))
+        # print("")
+        # print("Note: {}".format(i))
+        # if i < len(actual_notes):
+            # print("Predicted: {} Actual: {}".format(predicted, actual_notes[i]))
+        # else:
+            # print("Predicted: {}".format(predicted))
+        # print("Predicted start: {}".format(start))
+        # length = sample_to - sample_from
+        # print("Sampled from {} to {} ({} ms)".format(sample_from, sample_to, length))
+        # print("Frequency sample period: {}hz".format(freqs[1]))
 
         # Print peak info
-        peak_indicies, props = scipy.signal.find_peaks(freq_magnitudes, height=0.015)
+        '''peak_indicies, props = scipy.signal.find_peaks(freq_magnitudes, height=0.015)
         print("Peaks of more than 1.5 percent of total frequency contribution:")
         for j, peak in enumerate(peak_indicies):
             freq = freqs[peak]
@@ -134,10 +134,10 @@ def predict_notes(song, starts, actual_notes, plot_fft_indices):
             plt.plot(freqs, freq_magnitudes, "b")
             plt.xlabel("Freq (Hz)")
             plt.ylabel("|X(freq)|")
-            plt.show()
+            plt.show()'''
     return predicted_notes
 
-print(predict_notes(AudioSegment.from_file("uploads/twink.m4a"), predict_note_starts(AudioSegment.from_file("uploads/twink.m4a"), False, []), [], []))
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

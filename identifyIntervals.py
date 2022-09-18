@@ -1,3 +1,4 @@
+from collections import Counter, defaultdict
 import note_recognition
 
 #returns an array of all of the intervals
@@ -15,60 +16,57 @@ noteDict={
     "D#" : 7,
     "E" : 8,
     "F" : 9,
-    "G" : 10,
-    "G#" : 11,
+    "F#": 10,
+    "G" : 11,
+    "G#" : 12
 }
 
 #hsv values for each interval provided in a dictionary
 intervalDict = {
-    0: [0,50,10],
-    1: [0,50,10],
-    2: [0,50,10],
-    3: [0,50,10],
-    4: [0,50,10],
-    5: [0,50,10],
-    6: [0,50,10], 
-    7:[0,50,10],
-    8: [0,50,10],
-    9: [0,50,10],
-    10: [0,50,10],
-    11: [0,50,10],
-    12: [0,50,10],
+    1: [83,60,40],
+    2: [280,79,63],
+    3: [221,43,49],
+    4: [37,79,87],
+    5: [50,100,100],
+    6: [187,80,61],
+    7: [204,54,84], 
+    8:[0,100,44],
+    9: [0,100,86],
+    10: [84,100,80],
+    11: [290,65,29],
+    12: [32,100,92]
 }
+
 
 #takes in a string array of notes
 #returns an array of all the intervals
 def allIntervals(arr):
-    if(arr.length<=1):
+    if(len(arr)<=1):
         return [1]
     i=len(arr)-1
     intervalArray=[]
     while(i>0):
-        intervalArray.append(abs(noteDict[arr[i]]-noteDict[arr[i-1]]))
+        add = abs(noteDict[arr[i]]-noteDict[arr[i-1]])%8
+        intervalArray.append(add)
         i-=1
     return intervalArray
 
 #takes top k number of most frequent elements + returns them in an int array
-def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = {}
-        freq = [[] for i in range(len(nums) + 1)]
-
-        for n in nums:
-            count[n] = 1 + count.get(n, 0)
-        for n, c in count.items():
-            freq[c].append(n)
+def topKFrequent(nums, k):
+        frq = defaultdict(list)
+        for key, cnt in Counter(nums).items():
+            if key != 0:
+                frq[cnt].append(key)
 
         res = []
-        i = len(freq) - 1
-        while k > 0:
-            if freq[i] != [] and k-len(freq[i]) >= 0:
-                res.extend(freq[i])
-                k -= len(freq[i])
-            i -= 1
-        return res
+        for times in reversed(range(len(nums) + 1)):
+            res.extend(frq[times])
+            if len(res) >= k: return res[:k]
+
+        return res[:k]
 
 #returns an array with random-ish hue, saturation, brightness levels
-def hsvInRange(hsv:List[int], major:bool, spd:int):
+def hsvInRange(hsv, major, spd):
     hsv[0] += random.randint(-1,1)*random.randint(0,20)
     if hsv[0] <0:
         hsv[0] += 360
@@ -88,3 +86,13 @@ def hsvInRange(hsv:List[int], major:bool, spd:int):
         hsv[2] =100
 
     return hsv
+
+intervals = allIntervals(note_recognition.predict_notes(note_recognition.AudioSegment.from_file("uploads/twink.m4a"), note_recognition.predict_note_starts(note_recognition.AudioSegment.from_file("uploads/twink.m4a"), False, []), [], []))
+frequents = topKFrequent(intervals, 5)
+
+# spd
+
+# colours = []
+
+# for i in range frequents:
+#     colours.append(hsvInRange(intervalDict[frequents[i]]))
