@@ -1,14 +1,11 @@
 <html>
    <head>
       <link rel="stylesheet" href="/static/styles/page.css"/>
-      <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet"> -->
       <link rel="preconnect" href="https://fonts.googleapis.com"> 
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
    </head>
-   <body class="grad">
+   <body class="bg-image">
       {% with messages = get_flashed_messages() %}
          {% if messages %}
             {% for message in messages %}
@@ -17,7 +14,6 @@
          {% endif %}
       {% endwith %}
       <title>colors or something</title>
-      <!-- <div class="bg-image"></div> -->
       <div class = "titlebar">
          <h1>Insert Clever</h1> <h1>Music Pun</h1>
       </div>
@@ -30,7 +26,6 @@
          </form>
       </div>
       <div class="bottom">
-         <!-- <input class="roundBtn" value='?'> -->
       </div>
    </body>
 </html>
