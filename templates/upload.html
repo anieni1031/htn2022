@@ -1,5 +1,11 @@
 <html>
-   <body>
+   <head>
+      <link rel="stylesheet" href="/static/styles/page.css"/>
+      <link rel="preconnect" href="https://fonts.googleapis.com"> 
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+   </head>
+   <body class="bg-image">
       {% with messages = get_flashed_messages() %}
          {% if messages %}
             {% for message in messages %}
@@ -7,12 +13,19 @@
             {% endfor %}
          {% endif %}
       {% endwith %}
-   
       <title>colors or something</title>
-      <h1>Upload new File</h1>
-      <form method=post enctype=multipart/form-data>
-         <input type=file name=file>
-         <input type=submit value=Upload>
-      </form>
-    </body>
+      <div class = "titlebar">
+         <h1>Insert Clever</h1> <h1>Music Pun</h1>
+      </div>
+      <div class="middle" >
+         <form method=post enctype=multipart/form-data>
+            <input class="txtbox" type=file name=file>
+            <div class="resultsPad">
+               <input class="btnResults" type=submit value="Display Results">
+            </div>
+         </form>
+      </div>
+      <div class="bottom">
+      </div>
+   </body>
 </html>
