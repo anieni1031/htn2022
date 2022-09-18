@@ -97,7 +97,7 @@ def predict_note_starts(song, plot, actual_starts):
         plt.show()
     return predicted_starts
 
-print(predict_note_starts(AudioSegment.from_file("uploads/twink.m4a"), True, []))
+print(predict_note_starts(AudioSegment.from_file("uploads/twink.m4a"), False, []))
 
 def predict_notes(song, starts, actual_notes, plot_fft_indices):
     predicted_notes = []
@@ -139,6 +139,7 @@ def predict_notes(song, starts, actual_notes, plot_fft_indices):
             plt.show()
     return predicted_notes
 
+print(predict_notes(AudioSegment.from_file("uploads/twink.m4a"), predict_note_starts(AudioSegment.from_file("uploads/twink.m4a"), False, []), [0], [0]))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
