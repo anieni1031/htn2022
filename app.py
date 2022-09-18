@@ -1,4 +1,6 @@
 import os
+import note_recognition
+
 from flask import Flask, flash, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 
