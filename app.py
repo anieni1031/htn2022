@@ -1,5 +1,4 @@
 import os
-import note_recognition
 
 from flask import Flask, flash, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -32,7 +31,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('download_file', name=filename))
+            return render_template('results.html') # redirect(url_for('download_file', name=filename))
         else:
             flash('Unsupported file type')
             return redirect(request.url)
