@@ -19,25 +19,24 @@ noteDict={
 
 #hsv values for each interval provided in a dictionary
 intervalDict = {
-    0: [0,50,10],
-    1: [0,50,10],
-    2: [0,50,10],
-    3: [0,50,10],
-    4: [0,50,10],
-    5: [0,50,10],
-    6: [0,50,10], 
-    7:[0,50,10],
-    8: [0,50,10],
-    9: [0,50,10],
-    10: [0,50,10],
-    11: [0,50,10],
-    12: [0,50,10],
+    1: [82,60,40],
+    2: [280,79,63],
+    3: [221,43,49],
+    4: [37,79,87],
+    5: [50,100,100],
+    6: [187,80,61], 
+    7:[204,54,84],
+    8: [0,100,44],
+    9: [0,100,86],
+    10: [84,100,80],
+    11: [291,65,29],
+    12: [32,100,92],
 }
 
 #takes in a string array of notes
 #returns an array of all the intervals
 def allIntervals(arr):
-    if(arr.length<=1):
+    if(len(arr)<=1):
         return [1]
     i=len(arr)-1
     intervalArray=[]
@@ -59,7 +58,7 @@ def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         res = []
         i = len(freq) - 1
         while k > 0:
-            if freq[i] != [] and k-len(freq[i]) >= 0:
+            if freq[i] != [] and freq[i] != 0 and k-len(freq[i]) >= 0:
                 res.extend(freq[i])
                 k -= len(freq[i])
             i -= 1
